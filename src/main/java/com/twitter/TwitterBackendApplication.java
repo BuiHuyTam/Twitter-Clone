@@ -18,17 +18,12 @@ public class TwitterBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TwitterBackendApplication.class, args);
-
 	}
+
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepo, UserService userService){
+	CommandLineRunner run(RoleRepository roleRepo){
 		return args -> {
 			roleRepo.save(new Role(1, "USER"));
-			ApplicationUser u = new ApplicationUser();
-			u.setFirstName("Tam");
-			u.setLastName("Bui");
-			userService.registerUser(u);
 		};
 	}
-
 }
