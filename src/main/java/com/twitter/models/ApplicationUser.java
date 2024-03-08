@@ -38,8 +38,15 @@ public class ApplicationUser {
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
     private Set<Role> authorities;
+    private Boolean enabled;
+
+    @Column(nullable = true)
+    @JsonIgnore
+    private Long verificationCode;
+
     public ApplicationUser(){
         this.authorities = new HashSet<>();
+        this.enabled = false;
     }
 
     public Integer getUserId() {
