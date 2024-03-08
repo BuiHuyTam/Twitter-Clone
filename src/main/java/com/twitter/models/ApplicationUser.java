@@ -121,6 +121,22 @@ public class ApplicationUser {
         this.authorities = authorities;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public Long getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setVerificationCode(Long verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
     @Override
     public String toString() {
         return "ApplicationUser{" +
@@ -133,6 +149,8 @@ public class ApplicationUser {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
+                ", enabled=" + enabled +
+                ", verificationCode=" + verificationCode +
                 '}';
     }
 }
