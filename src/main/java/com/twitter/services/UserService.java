@@ -1,5 +1,5 @@
 package com.twitter.services;
-
+import com.twitter.exceptions.UserDoesNotExistException;
 import com.twitter.exceptions.EmailAlreadyTakenException;
 import com.twitter.models.ApplicationUser;
 import com.twitter.models.RegistrationObject;
@@ -20,6 +20,16 @@ public class UserService {
     public UserService(UserRepository userRepo, RoleRepository roleRepo){
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
+    }
+    public ApplicationUser getUserByUsername(String username){
+        return userRepo.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
+    }
+    public ApplicationUser updateUser(ApplicationUser user){
+        try{
+            return userRepo.save(user);
+        }catch (Exception e){
+            throw new EmailAlreadyTakenException();
+        }
     }
     public ApplicationUser registerUser(RegistrationObject ro){
         ApplicationUser user = new ApplicationUser();
@@ -50,4 +60,5 @@ public class UserService {
         long generatedNumber = (long) Math.floor(Math.random() * 1_000_000_000);
         return name+generatedNumber;
     }
+
 }
