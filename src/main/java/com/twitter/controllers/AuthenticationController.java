@@ -7,7 +7,6 @@ import com.twitter.models.RegistrationObject;
 import com.twitter.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +39,10 @@ public class AuthenticationController {
         ApplicationUser user = userService.getUserByUsername(username);
         user.setPhone(phone);
         return userService.updateUser(user);
+    }
+    @PostMapping("/email/code")
+    public ResponseEntity<String> createEmailVerificationCode(@RequestBody LinkedHashMap<String, String> body){
+        userService.generateEmailVerification(body.get("username"));
+        return new ResponseEntity<String>("Verification code generated, email sent", HttpStatus.OK);
     }
 }
